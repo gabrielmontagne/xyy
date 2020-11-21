@@ -1,0 +1,6 @@
+= xyy
+Gabriel Montagné Láscaris-Comneno <gabriel@tibas.london>
+v0.0.1
+
+Test and helper library for
+https://github.com/gabrielmontagne/blender-addon-process-vse-strip
