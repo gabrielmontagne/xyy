@@ -4,3 +4,12 @@ v0.0.1
 
 Test and helper library for
 https://github.com/gabrielmontagne/blender-addon-process-vse-strip
+
+To install,
+wherever your python lives, run the module ensurepip,
+then install this module locally, perhaps in developer mode,
+
+----
+/opt/blender/2.92/python/bin/python3.7m -m ensurepip
+/opt/blender/2.92/python/bin/python3.7m -m pip install -e /home/gabriel/los-fuegos/xyy/
+----
