@@ -6,6 +6,15 @@ import numpy as np
 
 app = Flask(__name__)
 
+
+def split_topbottom(orig):
+    return np.split(orig, 2)
+
+
+def join_topbottom(a, b):
+    return np.concatenate((a, b))
+
+
 def process_frame(func):
     @app.route('/process', methods=['POST'])
     def wrapper():
@@ -37,14 +46,8 @@ def start_server(port=3000):
 
 def label(pixels, text, pos=(10, 25), colour=(255, 255, 255)):
     import cv2
-    FONT = cv2.FONT_HERSHEY_SIMPLEX
-    cv2.putText(pixels, text, pos, FONT, 1, colour, 1, cv2.LINE_8)
-
-def split_topbottom(orig):
-    return np.split(orig, 2)
-
-def join_topbottom(a, b):
-    return np.concatenate((a, b))
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    cv2.putText(pixels, text, pos, font, 1, colour, 1, cv2.LINE_8)
 
 def prop(name, frame_number, default):
     import bpy

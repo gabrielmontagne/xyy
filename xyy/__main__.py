@@ -1,6 +1,3 @@
-def algo():
-    print('algo main')
-
 def main():
     print('running module xyy')
 
