@@ -1,6 +1,8 @@
 from IPython import embed
 from flask import Flask, request
-from imageio import read
+from imageio import read, imsave
+from os.path import join, isfile
+from pprint import pformat
 import numpy as np
 
 app = Flask(__name__)
@@ -10,13 +12,21 @@ def process_frame(func):
 
     @app.route('/process', methods=['POST'])
     def wrapper():
-        print('running nested funcs', request.json)
+        print('running nested funcs', pformat(request.json))
+
+        config = request.json
+
+        new_frame = func(list(read(config.get('image_path'))).pop(), request.json)
+
         # embed()
-        img = read(request.get('image_path'))
+        new_save_path = join(
+            config.get('processed_dir'), 
+            f'xxy_{config.get("original_file_name")}.png'
+        )
 
-        func(img, request)
+        imsave(new_save_path, new_frame)
 
-        return 'ok', 200
+        return new_save_path, 200
 
     return wrapper
 
