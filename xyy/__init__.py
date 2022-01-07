@@ -32,7 +32,7 @@ def process_frame(func):
 
         new_save_path = join(
             config.get('processed_dir'), 
-            f'xyy_{config.get("original_file_name")}.png'
+            f'{config.get("original_file_name")}.png'
         )
 
         imsave(new_save_path, new_frame)
