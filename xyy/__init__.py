@@ -1,3 +1,4 @@
+from argparse import ArgumentParser
 from flask import Flask, request, Response
 from imageio import read, imsave
 from os.path import join
@@ -40,9 +41,12 @@ def process_frame(func):
     return wrapper
 
 
-def start_server(port=3000):
-    app.run(host='0.0.0.0', port=port, threaded=False)
-    print('start XYY server', port)
+def start_server():
+    parser = ArgumentParser()
+    parser.add_argument('--port', type=int, default=3000)
+    args, _ = parser.parse_known_args()
+    app.run(host='0.0.0.0', port=args.port, threaded=False)
+    print('start XYY server', args.port)
 
 
 def label(pixels, text, pos=(10, 25), colour=(255, 255, 255)):
