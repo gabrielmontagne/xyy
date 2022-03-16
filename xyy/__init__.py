@@ -1,7 +1,6 @@
 from flask import Flask, request, Response
 from imageio import read, imsave
-from os.path import join, isfile
-from pprint import pformat
+from os.path import join
 import numpy as np
 
 app = Flask(__name__)
@@ -31,7 +30,7 @@ def process_frame(func):
             new_frame = func(bitmap, request.json)
 
         new_save_path = join(
-            config.get('processed_dir'), 
+            config.get('processed_dir'),
             f'{config.get("original_file_name")}.png'
         )
 
@@ -40,14 +39,17 @@ def process_frame(func):
 
     return wrapper
 
+
 def start_server(port=3000):
     app.run(host='0.0.0.0', port=port, threaded=False)
     print('start XYY server', port)
+
 
 def label(pixels, text, pos=(10, 25), colour=(255, 255, 255)):
     import cv2
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(pixels, text, pos, font, 1, colour, 1, cv2.LINE_8)
+
 
 def prop(name, frame_number, default):
     import bpy
@@ -55,7 +57,8 @@ def prop(name, frame_number, default):
 
     fcurve = None
     if world.animation_data:
-        fcurve = world.animation_data.action.fcurves.find('["{}"]'.format(name))
+        fcurve = world.animation_data.action.fcurves.find(
+            '["{}"]'.format(name))
 
     if fcurve:
         result = fcurve.evaluate(frame_number)
