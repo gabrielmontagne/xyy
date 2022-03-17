@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 from flask import Flask, request, Response
-from imageio import read, imsave
+from imageio import read, imwrite
 from os.path import join
 import numpy as np
 
@@ -35,7 +35,7 @@ def process_frame(func):
             f'{config.get("original_file_name")}.png'
         )
 
-        imsave(new_save_path, new_frame)
+        imwrite(new_save_path, new_frame, 'PNG-FI')
         return Response(new_save_path, content_type='text/plain')
 
     return wrapper
